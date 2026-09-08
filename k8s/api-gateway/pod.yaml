@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: api-gateway
+  namespace: devops-learning
+
+  labels:
+    app: api-gateway
+
+spec:
+  restartPolicy: Always
+
+
+  containers:
+    - name: api-gateway
+      image: api-gateway:v1
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 8000
+

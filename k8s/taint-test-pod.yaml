@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: taint-test
+  namespace: devops-learning
+
+spec:
+  tolerations:
+    - key: dedicated
+      operator: Equal
+      value: taint-demo
+      effect: NoSchedule
+
+  containers:
+    - name: test
+      image: busybox:1.36
+      command:
+        - sh
+        - -c
+        - |
+          echo "This Pod tolerates the taint"
+          sleep 3600

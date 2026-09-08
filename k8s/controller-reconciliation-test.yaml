@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: controller-reconciliation-test
+  namespace: devops-learning
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: controller-demo
+  template:
+    metadata:
+      labels:
+        app: controller-demo
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.27

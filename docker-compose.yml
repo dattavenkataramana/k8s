@@ -1,0 +1,56 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+    image: frontend:v1
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    environment:
+      INTERNAL_API_URL: http://api-gateway:8000
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+    depends_on:
+      - api-gateway
+    networks:
+      - devops-network
+
+  api-gateway:
+    build:
+      context: ./services/api-gateway
+    image: api-gateway:v1
+    container_name: apigateway
+    ports:
+      - "8000:8000"
+    environment:
+      CATALOG_SERVICE_URL: http://catalog-service:8001
+      PROGRESS_SERVICE_URL: http://progress-service:8002
+      FRONTEND_ORIGIN: http://localhost:3000
+    depends_on:
+      - catalog-service
+      - progress-service
+    networks:
+      - devops-network
+
+  catalog-service:
+    build:
+      context: ./services/catalog-service
+    image: catalog-service:v1
+    container_name: catalogservice
+    ports:
+      - "8001:8001"
+    networks:
+      - devops-network
+
+  progress-service:
+    build:
+      context: ./services/progress-service
+    image: progress-service:v1
+    container_name: progressservice
+    ports:
+      - "8002:8002"
+    networks:
+      - devops-network
+
+networks:
+  devops-network:
+    driver: bridge

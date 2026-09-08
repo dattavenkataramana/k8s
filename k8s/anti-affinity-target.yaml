@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: anti-affinity-target
+  namespace: devops-learning
+  labels:
+    app: catalog
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.27

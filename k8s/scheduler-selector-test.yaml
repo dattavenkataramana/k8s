@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: scheduler-selector-test
+  namespace: devops-learning
+
+spec:
+  nodeSelector:
+    scheduler-demo: "true"
+
+  containers:
+    - name: test
+      image: busybox:1.36
+      command:
+        - sh
+        - -c
+        - |
+          echo "Scheduler nodeSelector test"
+          sleep 3600

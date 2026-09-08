@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: priority-high-pod
+  namespace: devops-learning
+spec:
+  priorityClassName: learning-high
+  containers:
+    - name: nginx
+      image: nginx:1.27
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "64Mi"

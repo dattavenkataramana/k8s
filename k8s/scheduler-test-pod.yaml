@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: scheduler-test
+  namespace: devops-learning
+
+spec:
+  containers:
+    - name: test
+      image: nginx:1.27

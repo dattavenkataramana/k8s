@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-required-antiaffinity
+  namespace: devops-learning
+spec:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchLabels:
+              app: catalog
+          topologyKey: kubernetes.io/hostname
+
+  containers:
+    - name: nginx
+      image: nginx:1.27

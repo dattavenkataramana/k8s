@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: qos-limit-only
+  namespace: devops-learning
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.27
+      resources:
+        limits:
+          cpu: "200m"
+          memory: "128Mi"

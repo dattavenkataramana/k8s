@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: memory-oom-test
+  namespace: devops-learning
+spec:
+  restartPolicy: Never
+  containers:
+    - name: memory-eater
+      image: python:3.12-alpine
+      command:
+        - python
+        - -c
+        - |
+          print("Starting memory allocation")
+          data = bytearray(128 * 1024 * 1024)
+          print("Allocated 128Mi")
+          while True:
+              pass
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "32Mi"
+        limits:
+          cpu: "500m"
+          memory: "64Mi"

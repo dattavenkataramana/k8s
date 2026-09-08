@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: pvc-test
+  namespace: devops-learning
+
+spec:
+  containers:
+    - name: test
+      image: busybox:1.36
+
+      command:
+        - sh
+        - -c
+        - |
+          if [ ! -f /data/test.txt ]; then
+            echo "CREATED-FIRST-TIME-2026" > /data/test.txt
+          fi
+          cat /data/test.txt
+          sleep 3600
+
+      volumeMounts:
+        - name: backup-storage
+          mountPath: /data
+
+  volumes:
+    - name: backup-storage
+      persistentVolumeClaim:
+        claimName: etcd-backup-pvc

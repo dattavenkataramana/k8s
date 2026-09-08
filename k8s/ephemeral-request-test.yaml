@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ephemeral-limit-test
+  namespace: devops-learning
+spec:
+  restartPolicy: Never
+  containers:
+    - name: storage-eater
+      image: busybox:1.36
+      command:
+        - sh
+        - -c
+        - |
+          echo "Starting ephemeral storage test"
+          dd if=/dev/zero of=/tmp/testfile bs=1M count=80
+          echo "Finished writing"
+          sleep 3600
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "32Mi"
+          ephemeral-storage: "50Mi"
+        limits:
+          cpu: "200m"
+          memory: "64Mi"
+          ephemeral-storage: "100Mi"

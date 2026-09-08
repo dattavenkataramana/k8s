@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-affinity-test
+  namespace: devops-learning
+spec:
+  affinity:
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchLabels:
+              app: affinity-target
+          topologyKey: kubernetes.io/hostname
+
+  containers:
+    - name: nginx
+      image: nginx:1.27
