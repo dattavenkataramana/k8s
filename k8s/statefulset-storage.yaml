@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: stateful-storage-demo
+  namespace: devops-learning
+
+spec:
+  serviceName: stateful-demo
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: stateful-storage-demo
+
+  template:
+    metadata:
+      labels:
+        app: stateful-storage-demo
+
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.27
+
+          volumeMounts:
+            - name: data
+              mountPath: /usr/share/nginx/html/data
+
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+
+        resources:
+          requests:
+            storage: 1Gi
+
+        storageClassName: standard

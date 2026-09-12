@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-basic
+  namespace: devops-learning
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: cronjob-basic
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: task
+              image: busybox:1.36
+              command:
+                - sh
+                - -c
+                - |
+                  echo "CronJob execution started"
+                  date
+                  echo "CronJob execution completed"
