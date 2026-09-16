@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: catalog-clusterrole-binding
+  namespace: devops-learning
+
+subjects:
+- kind: ServiceAccount
+  name: catalog-sa
+  namespace: devops-learning
+
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: pod-reader-clusterrole

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemon-basic
+  namespace: devops-learning
+
+spec:
+  selector:
+    matchLabels:
+      app: daemon-basic
+
+  template:
+    metadata:
+      labels:
+        app: daemon-basic
+
+    spec:
+      containers:
+        - name: agent
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - |
+              echo "DaemonSet agent started"
+              sleep 3600

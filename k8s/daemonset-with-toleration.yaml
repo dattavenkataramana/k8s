@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemon-with-toleration
+  namespace: devops-learning
+
+spec:
+  selector:
+    matchLabels:
+      app: daemon-with-toleration
+
+  template:
+    metadata:
+      labels:
+        app: daemon-with-toleration
+
+    spec:
+      tolerations:
+        - key: dedicated
+          operator: Equal
+          value: infra
+          effect: NoSchedule
+
+      containers:
+        - name: agent
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - |
+              echo "Agent with toleration"
+              sleep 3600

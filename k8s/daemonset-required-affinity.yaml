@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemon-required-affinity
+  namespace: devops-learning
+
+spec:
+  selector:
+    matchLabels:
+      app: daemon-required-affinity
+
+  template:
+    metadata:
+      labels:
+        app: daemon-required-affinity
+
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: workload
+                    operator: In
+                    values:
+                      - gpu
+
+      containers:
+        - name: agent
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - |
+              echo "GPU node agent started"
+              sleep 3600

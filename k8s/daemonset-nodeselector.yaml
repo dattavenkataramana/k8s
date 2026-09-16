@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemon-node-selector
+  namespace: devops-learning
+
+spec:
+  selector:
+    matchLabels:
+      app: daemon-node-selector
+
+  template:
+    metadata:
+      labels:
+        app: daemon-node-selector
+
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+
+      containers:
+        - name: agent
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - |
+              echo "Linux node agent started"
+              sleep 3600

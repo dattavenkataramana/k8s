@@ -1,0 +1,11 @@
+[
+  {
+    "op": "remove",
+    "path": "/spec/updateStrategy/rollingUpdate"
+  },
+  {
+    "op": "replace",
+    "path": "/spec/updateStrategy/type",
+    "value": "OnDelete"
+  }
+]

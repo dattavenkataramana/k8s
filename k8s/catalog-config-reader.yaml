@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: catalog-config-reader
+  namespace: devops-learning
+
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  resourceNames:
+  - catalog-config
+  verbs:
+  - get

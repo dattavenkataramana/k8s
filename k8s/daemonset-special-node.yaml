@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemon-special-node
+  namespace: devops-learning
+
+spec:
+  selector:
+    matchLabels:
+      app: daemon-special-node
+
+  template:
+    metadata:
+      labels:
+        app: daemon-special-node
+
+    spec:
+      nodeSelector:
+        workload: special
+
+      containers:
+        - name: agent
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - |
+              echo "Special node agent started"
+              sleep 3600
