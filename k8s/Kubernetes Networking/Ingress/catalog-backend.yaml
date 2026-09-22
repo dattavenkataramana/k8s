@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: catalog-backend
+  namespace: pod-network-lab
+  labels:
+    app: catalog-backend
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.27
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: nginx-config
+      mountPath: /etc/nginx/conf.d/default.conf
+      subPath: default.conf
+
+  volumes:
+  - name: nginx-config
+    configMap:
+      name: catalog-nginx-config
