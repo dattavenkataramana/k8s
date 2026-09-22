@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: netpol-server
+  namespace: netpol-lab
+  labels:
+    app: netpol-server
+spec:
+  containers:
+  - name: server
+    image: nginx:1.27
+    ports:
+    - containerPort: 80

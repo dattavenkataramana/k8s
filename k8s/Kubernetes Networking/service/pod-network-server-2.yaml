@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-network-server-2
+  namespace: pod-network-lab
+  labels:
+    app: pod-network-server
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.27
+    ports:
+    - containerPort: 80

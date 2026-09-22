@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: securitycontext-capability
+  namespace: devops-learning
+
+spec:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    runAsNonRoot: true
+
+  containers:
+  - name: app
+    image: busybox:1.36
+    command: ["sh", "-c", "sleep 3600"]
+
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
+        add:
+          - NET_RAW
